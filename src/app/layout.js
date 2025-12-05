@@ -1,13 +1,20 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import { Source_Serif_4, Oswald, Caveat } from "next/font/google";
 import "./globals.css";
+import Footer from "./components/general/footer";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const sourceSerif = Source_Serif_4({
+  variable: "--font-source-serif",
+  weight: ["400", "500", "600", "700"],
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const oswald = Oswald({
+  variable: "--font-oswald",
+  subsets: ["latin"],
+});
+
+const caveat = Caveat({
+  variable: "--font-caveat",
   subsets: ["latin"],
 });
 
@@ -20,9 +27,10 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${sourceSerif.variable} ${oswald.variable} ${caveat.variable} antialiased`}
       >
         {children}
+        <Footer />
       </body>
     </html>
   );
