@@ -1,6 +1,7 @@
 import { Source_Serif_4, Oswald, Caveat } from "next/font/google";
 import "./globals.css";
 import Footer from "./components/general/footer";
+import Navigation from "./components/general/navigation";
 
 const sourceSerif = Source_Serif_4({
   variable: "--font-source-serif",
@@ -29,7 +30,8 @@ export default function RootLayout({ children }) {
       <body
         className={`${sourceSerif.variable} ${oswald.variable} ${caveat.variable} antialiased`}
       >
-        {children}
+        <Navigation />
+        <main className="pt-20 lg:pt-24">{children}</main>
         <Footer />
       </body>
     </html>
