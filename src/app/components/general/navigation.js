@@ -7,11 +7,10 @@ import { useGSAP } from "@gsap/react";
 
 gsap.registerPlugin(useGSAP);
 
-const NAV_HEIGHT = "4.5rem";
-
 export default function Navigation() {
   const navRef = useRef(null);
   const panelRef = useRef(null);
+  const backdropRef = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
 
@@ -46,15 +45,24 @@ export default function Navigation() {
 
   useGSAP(
     () => {
+      gsap.set(panelRef.current, { x: "100%" });
+      gsap.set(".menu-link", { x: 24, opacity: 0 });
+      gsap.set(backdropRef.current, { opacity: 0 });
+    },
+    { dependencies: [] }
+  );
+
+  useGSAP(
+    () => {
       const tl = gsap.timeline({ defaults: { ease: "power2.out" } });
 
       tl.to(panelRef.current, {
-        height: isOpen ? "100vh" : NAV_HEIGHT,
-        duration: 0.6,
+        x: isOpen ? 0 : "100%",
+        duration: 0.5,
       });
 
       tl.to(
-        ".menu-backdrop",
+        backdropRef.current,
         {
           opacity: isOpen ? 1 : 0,
           duration: 0.4,
@@ -66,7 +74,7 @@ export default function Navigation() {
         ".menu-link",
         {
           opacity: isOpen ? 1 : 0,
-          y: isOpen ? 0 : -12,
+          x: isOpen ? 0 : 24,
           stagger: 0.05,
           duration: 0.35,
         },
@@ -80,15 +88,19 @@ export default function Navigation() {
 
   return (
     <header ref={navRef} className="fixed inset-x-0 top-0 z-50 px-4 sm:px-8">
-      <div
-        ref={panelRef}
-        className="relative overflow-hidden rounded-b-2xl border border-goldbackground bg-background/90 backdrop-blur-xl"
-        style={{ height: NAV_HEIGHT }}
-      >
+      <div className="relative rounded-b-2xl border border-goldbackground bg-background/90 backdrop-blur-xl">
         <div className="flex h-16 items-center justify-between px-4 sm:px-6">
-          <Link href="/" className="text-lg font-semibold uppercase tracking-wide">
-            Galos Casa Creativa
-          </Link>
+          <div className="flex items-center gap-3">
+            <div
+              className="flex h-10 w-28 items-center justify-center rounded-md border border-goldbackground/60 bg-background/60 text-xs font-semibold uppercase tracking-wide"
+              aria-label="Logo de la agencia"
+            >
+              Logo
+            </div>
+            <Link href="/" className="text-lg font-semibold uppercase tracking-wide">
+              Galos Casa Creativa
+            </Link>
+          </div>
 
           <button
             type="button"
@@ -100,24 +112,34 @@ export default function Navigation() {
             {isOpen ? "X" : "Menú"}
           </button>
         </div>
-
-        <div className="menu-backdrop pointer-events-none absolute inset-0 -z-10 bg-blackText opacity-0" />
-
-        <nav className="flex h-[calc(100%-4.5rem)] flex-col items-center justify-center gap-6 px-6 text-center text-xl uppercase font-primary">
-          <Link href="/" className="menu-link opacity-0" onClick={() => setIsOpen(false)}>
-            Home
-          </Link>
-          <Link href="/photos" className="menu-link opacity-0" onClick={() => setIsOpen(false)}>
-            Fotos
-          </Link>
-          <Link href="/websites" className="menu-link opacity-0" onClick={() => setIsOpen(false)}>
-            Diseño Web
-          </Link>
-          <Link href="/blog" className="menu-link opacity-0" onClick={() => setIsOpen(false)}>
-            Blog
-          </Link>
-        </nav>
       </div>
+
+      <div
+        ref={backdropRef}
+        className="menu-backdrop fixed inset-0 z-40 bg-blackText/80 opacity-0"
+        style={{ pointerEvents: isOpen ? "auto" : "none" }}
+        aria-hidden={!isOpen}
+        onClick={() => setIsOpen(false)}
+      />
+
+      <nav
+        ref={panelRef}
+        className="fixed top-0 right-0 z-40 flex h-screen w-[90%] sm:w-[80%] lg:w-1/2 flex-col gap-6 border-l border-goldbackground bg-background/95 px-6 pb-12 pt-24 text-left text-xl uppercase font-primary shadow-[-12px_0_30px_rgba(0,0,0,0.35)]"
+        style={{ transform: "translateX(100%)" }}
+      >
+        <Link href="/" className="menu-link" onClick={() => setIsOpen(false)}>
+          Home
+        </Link>
+        <Link href="/photos" className="menu-link" onClick={() => setIsOpen(false)}>
+          Fotos
+        </Link>
+        <Link href="/websites" className="menu-link" onClick={() => setIsOpen(false)}>
+          Diseño Web
+        </Link>
+        <Link href="/blog" className="menu-link" onClick={() => setIsOpen(false)}>
+          Blog
+        </Link>
+      </nav>
     </header>
   );
 }
