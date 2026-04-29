@@ -17,22 +17,22 @@ export default function SwiperSlider(params) {
 
     const services = [
 		{
-			src: "/photos/service1.jpg",
+			src: "/photos/CHAMELA_41.jpg",
 			id: 1,
             title: "Servicio 1"
 		},
 		{
-			src: "/photos/service2.jpg",
+			src: "/photos/service1.jpg",
 			id: 2,
             title: "Servicio 1"
 		},
 		{
-			src: "/photos/service1.jpg",
+			src: "/photos/et_talks.jpg",
 			id: 3,
             title: "Servicio 1"
 		},
 		{
-			src: "/photos/service2.jpg",
+			src: "/photos/postre.jpg",
 			id: 4,
             title: "Servicio 1"
 		},
@@ -71,7 +71,7 @@ export default function SwiperSlider(params) {
 							<div className="h-[380px] w-full rounded-lg relative overflow-hidden sm:h-[500px] lg:h-[600px] xl:h-full xl:rounded-none">
 								<Image
 									fill
-									className="object-cover"
+									className="object-cover object-top"
 									src={service.src}
 									alt={service.title}
 								></Image>

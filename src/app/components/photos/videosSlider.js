@@ -57,8 +57,8 @@ export default function PhotosSlider(params) {
 			>
 				<div className=" w-full flex flex-col h-screen shrink-0 xl:flex-row xl:justify-between">
 					<article className="text-blackText mt-4 sm:mt-8 xl:w-4/10 xl:pt-16 self-center">
-						<h2 className="text-2xl font-bold sm:text-5xl">ET TALKS - EPISODE #1</h2>
-						<p className="text-xl mt-4 sm:text-3xl sm:mt-8">
+						<h2 className="text-2xl font-bold sm:text-5xl 2xl:text-7xl">ET TALKS - EPISODE #1</h2>
+						<p className="text-xl mt-4 sm:text-3xl sm:mt-8 2xl:text-4xl">
 							Video realizado para el Preuniversitario Formarte, en su programa English
 							Training, destacando su metodología innovadora y el impacto en la formación
 							de sus estudiantes.
@@ -69,7 +69,7 @@ export default function PhotosSlider(params) {
 						</ul>
 					</article>
 					<img className="h-7/10 my-auto" src="/separator.svg" alt="" />
-					<div className="bg-foreground w-full h-52 -order-1 sm:h-96 lg:h-[550px] xl:w-[42rem] xl:h-[24rem] overflow-hidden rounded-2xl xl:order-1 xl:self-center">
+					<div className="bg-foreground w-full h-52 -order-1 sm:h-96 lg:h-[550px] xl:w-2xl xl:h-96 overflow-hidden rounded-2xl xl:order-1 xl:self-center 3xl:w-3xl 3xl:h-112">
 						<iframe
 							width="100%"
 							height="100%"
@@ -99,10 +99,10 @@ export default function PhotosSlider(params) {
 			>
 				<div className="w-full flex flex-col h-screen shrink-0 xl:flex-row xl:justify-between">
 					<article className="text-blackText mt-4 sm:mt-8 xl:w-4/10 xl:pt-16 self-center">
-						<h2 className="text-2xl font-bold sm:text-5xl">
+						<h2 className="text-2xl font-bold sm:text-5xl 2xl:text-7xl">
 							A NADIE LE COPIO - 'EL TIGRE DEL PUEBLO'
 						</h2>
-						<p className="text-xl mt-4 sm:text-2xl sm:mt-8">
+						<p className="text-xl mt-4 sm:text-2xl sm:mt-8 2xl:text-4xl">
 							Videoclip realizado para el artista de música popular Antony, el Tigre del
 							Pueblo, destacando su inconfundible estilo y pasión por la música que
 							conecta con el corazón de su gente.
@@ -115,7 +115,7 @@ export default function PhotosSlider(params) {
 					</article>
 					<img className="h-7/10 my-auto" src="/separator.svg" alt="" />
 
-					<div className="bg-gray-500 w-full h-52 -order-1 sm:h-96 lg:h-[550px] xl:w-[42rem] xl:h-[24rem] overflow-hidden rounded-2xl xl:order-1 xl:self-center">
+					<div className="bg-gray-500 w-full h-52 -order-1 sm:h-96 lg:h-[550px] xl:w-2xl xl:h-96 overflow-hidden rounded-2xl xl:order-1 xl:self-center 3xl:w-3xl 3xl:h-112">
 						<iframe
 							width="100%"
 							height="100%"
@@ -145,8 +145,8 @@ export default function PhotosSlider(params) {
 			>
 				<div className=" w-full flex flex-col h-screen shrink-0 xl:flex-row xl:justify-between">
 					<article className="text-blackText mt-4 sm:mt-8 xl:w-4/10 xl:pt-16 self-center">
-						<h2 className="text-2xl font-bold sm:text-5xl">VESTIGIOS - ECOS</h2>
-						<p className="text-xl mt-4 sm:text-3xl sm:mt-8 ">
+						<h2 className="text-2xl font-bold sm:text-5xl 2xl:text-7xl">VESTIGIOS - ECOS</h2>
+						<p className="text-xl mt-4 sm:text-3xl sm:mt-8 2xl:text-4xl">
 							Tráiler del cortometraje realizado para la marca de ropa ECOS, en su drop
 							Vestigios, una propuesta visual que explora la historia y el legado del
 							ferrocarril de Antioquia a través de la moda y la narrativa audiovisual.
@@ -159,7 +159,7 @@ export default function PhotosSlider(params) {
 					</article>
 					<img className="h-7/10 my-auto" src="/separator.svg" alt="" />
 
-					<div className="bg-gray-500 w-full h-52 -order-1 sm:h-96 lg:h-[550px] xl:w-[42rem] xl:h-[24rem] overflow-hidden rounded-2xl xl:order-1 xl:self-center">
+					<div className="bg-gray-500 w-full h-52 -order-1 sm:h-96 lg:h-[550px] xl:w-2xl xl:h-96 overflow-hidden rounded-2xl xl:order-1 xl:self-center 3xl:w-3xl 3xl:h-112">
 						<iframe
 							width="100%"
 							height="100%"

@@ -3,17 +3,18 @@ import Link from "next/link";
 import ServicesCarousel from "./components/home/servicesCarousel";
 import DesignsCarousel from "./components/home/designsCarousel";
 import HomeTitle from "./components/lottie/homeTitle";
+import SplineScene from "./components/home/splineScene";
 
 export default function Home() {
 	return (
 		<div className="font-primary ">
-			<main className="flex flex-col gap-[24px] relative items-start sm:items-start">
-				<div className="flex flex-col gap-[24px] p-8 xl:p-16 xl:h-screen relative after:absolute after:w-full after:h-1/12 after:bg-black after:left-0 after:bottom-0 after:bg-linear-to-b after:mask-t-from-20% after:to-background">
+			<main className="flex flex-col gap-6 relative items-start sm:items-start">
+				<div className="flex flex-col gap-6 p-8 xl:p-16 xl:h-screen relative after:to-background 2xl:p-24">
 					<div className="absolute -z-10 h-full w-4/5 top-0 left-0">
 						<Image src="/photos/detrasDeCamara.png" alt="" fill className=" object-cover" />
 					</div>
 					<HomeTitle />
-					<p className="font-secundary text-center sm:text-3xl xl:text-start xl:w-4/6 xl:bottom-0 xl:mt-auto xl:inset-x-0 xl:relative">
+					<p className="font-secundary text-center sm:text-3xl xl:text-start xl:w-4/6 xl:bottom-0 xl:mt-auto xl:inset-x-0 xl:relative 2xl:text-4xl 2xl:w-4/7">
 						Creamos experiencias que se traducen en resultados reales y memorables;
 						nuestra prioridad es conectar profundamente contigo y con las personas que
 						confían en tu marca.
@@ -24,20 +25,20 @@ export default function Home() {
 							<img src="/arrow.svg" alt="" />
 						</span>
 					</button> */}
-					<ul className="flex flex-col w-max relative left-[70%] items-end gap-2 sm:gap-4 text-lg sm:text-3xl xl:right-16 xl:left-auto xl:top-[55vh] xl:absolute">
-						<li className="w-max ">Fotografía</li>
-						<li className="w-max ">Video</li>
-						<li className="w-max ">Desarrollo Web</li>
-						<li className="w-max ">Ui-Ux</li>
-						<li className="w-max ">Sobre Nosotros</li>
+					<ul className="flex flex-col w-max relative left-[70%] items-end gap-2 sm:gap-4 text-lg sm:text-3xl xl:right-16 xl:left-auto xl:top-[55vh] xl:absolute 2xl:text-4xl">
+						<li className="w-max "><a href="#photos">Fotografía</a></li>
+						<li className="w-max "><a href="#video">Video</a></li>
+						<li className="w-max "><a href="#websites">Desarrollo Web</a></li>
+						<li className="w-max "><a href="#ui-ux">Ui-Ux</a></li>
+						<li className="w-max "><a href="#about">Sobre Nosotros</a></li>
 					</ul>
 				</div>
 
-				<div className="pb-8 pt-8 relative xl:h-[26rem] xl:flex xl:flex-col xl:justify-center w-full xl:pb-16 xl:pt-16">
-					<h2 className="text-goldbackground text-2xl sm:text-5xl pr-3 pl-8 mt-2 xl:w-6/8 xl:text-6xl xl:pl-16">
+				<div className="pb-8 pt-8 relative xl:h-104 xl:flex xl:flex-col xl:justify-center w-full xl:pb-16 xl:pt-16 2xl:pb-20 2xl:pt-20">
+					<h2 className="text-goldbackground text-2xl sm:text-5xl pr-3 pl-8 mt-2 xl:w-6/8 xl:text-6xl xl:pl-16 2xl:text-7xl 2xl:pl-20">
 						CÁMARAS LISTAS, TU HISTORIA COMIENZA CON NOSOTROS
 					</h2>
-					<p className="font-secundary pr-3 pl-8 mt-2 sm:mt-4 sm:text-3xl w-4/5 uppercase xl:w-4/7 xl:pl-16">
+					<p className="font-secundary pr-3 pl-8 mt-2 sm:mt-4 sm:text-3xl w-4/5 uppercase xl:w-4/7 xl:pl-16 2xl:text-4xl 2xl:mt-8 2xl:pl-20">
 						Fotografía profesional para marcas que buscan destacar en el mundo digital
 					</p>
 					<div className="absolute top-0 -z-10 h-full w-full">
@@ -50,8 +51,8 @@ export default function Home() {
 					</div>
 				</div>
 
-				<div className="w-full relative">
-					<h2 className="text-goldbackground text-2xl mt-8 p-8 sm:text-5xl xl:w-5/6 xl:text-6xl xl:p-16">
+				<div className="w-full relative" id="photos">
+					<h2 className="text-goldbackground text-2xl mt-8 p-8 sm:text-5xl xl:w-5/6 xl:text-6xl xl:p-16 2xl:text-7xl 2xl:w-7/10">
 						QUEREMOS CAPTURAR INSTATES QUE PERDUREN Y TRANSMITAN LO QUE SIENTES
 					</h2>
 					<div className="flex justify-between p-8 items-center xl:p-16">
@@ -64,7 +65,7 @@ export default function Home() {
 						</Link>
 					</div>
 					<ServicesCarousel />
-					<p className="p-8 xl:p-16 font-secundary sm:text-3xl xl:w-3/5">
+					<p className="p-8 xl:p-16 font-secundary sm:text-3xl xl:w-3/5 2xl:text-4xl">
 						Si quieres conocer más de nuestro trabajo fotográfico en{" "}
 						<span className="font-bold text-white">Galos Casa Creativa</span> puedes
 						visitar nuestro perfil en{" "}
@@ -73,15 +74,17 @@ export default function Home() {
 					</p>
 				</div>
 
-				<div>
+				<div className="w-3/4 relative" id="video">
 					<h2 className="text-goldbackground text-2xl mt-8 p-8">VIDEO SECTION</h2>
+					<SplineScene />
+					{/* <iframe src='https://my.spline.design/miniroomartcopy-q1fVJinXpKPDUJeiRk152LUc/' frameborder='0' width='100%' height='100%'></iframe> */}
 				</div>
 
-				<div className="p-8 xl:p-16 w-full">
-					<h2 className="text-goldbackground text-2xl sm:text-5xl mt-8 uppercase xl:text-6xl text-center">
+				<div className="p-8 xl:p-16 w-full" id="websites">
+					<h2 className="text-goldbackground text-2xl sm:text-5xl mt-8 uppercase xl:text-6xl text-center 2xl:text-7xl">
 						Diseño y Desarrollo Web
 					</h2>
-					<ul className="flex flex-wrap justify-center gap-1 xl:gap-2 text-xs sm:text-base sm:mt-2">
+					<ul className="flex flex-wrap justify-center gap-1 xl:gap-2 text-xs sm:text-base sm:mt-2 2xl:text-xl">
 						<li className="underline">UX-UI</li>
 						<li className="underline">SEO</li>
 						<li className="underline">ESCALABILIDAD</li>
@@ -93,7 +96,7 @@ export default function Home() {
 					<section className="flex flex-col justify-center-items xl:flex-row xl:mt-15 xl:mb-15 xl:items-center xl:justify-between xl:content-between xl:w-full">
 						<div className="bg-gray-400 w-2/5 rounded-3xl h-83"></div>
 						<section className="flex flex-col justify-center-items xl:items-start xl:justify-center xl:w-2/4">
-							<p className="text-xs sm:text-xl text-center mt-7 sm:mt-15 inline-block ">
+							<p className="text-xs sm:text-xl text-center mt-7 sm:mt-15 inline-block 2xl:text-2xl xl:text-start">
 								NUESTRA IDENTIDAD
 							</p>
 							<p className="font-handwriting text-3xl sm:text-5xl text-center mt-2 xl:text-8xl xl:text-start">
@@ -103,7 +106,7 @@ export default function Home() {
 								<span className="text-goldbackground">toda</span> una{" "}
 								<span className="text-goldbackground">relación</span>
 							</p>
-							<p className="font-light font-secundary text-center text-sm sm:text-2xl xl:text-start mt-2.5 xl:mt-6 xl:w-4/5 xl:text-3xl">
+							<p className="font-light font-secundary text-center text-sm sm:text-2xl xl:text-start mt-2.5 xl:mt-6 xl:w-4/5 xl:text-3xl 2xl:text-4xl">
 								En <span className="font-bold">Galos Casa Creativa</span>, el diseño es
 								nuestro idioma para influir en cómo se valora y se recuerda un producto o
 								servicio.
@@ -112,21 +115,21 @@ export default function Home() {
 					</section>
 				</div>
 
-				<div>
-					<img className="max-w-full" src="/bentoText.svg" alt="" />
+				<div id="ui-ux">
+					<img className="max-w-full 2xl:w-full" src="/bentoText.svg" alt="" />
 					<section className="max-w-screen xl:flex overflow-hidden xl:justify-between">
 						<section className="p-8 sm:mt-10 flex flex-col items-center xl:w-5/10 xl:text-start xl:p-16">
 							<Link
 								href=""
-								className="flex justify-center self-end gap-1 uppercase text-xs sm:text-base xl:self-start"
+								className="flex justify-center self-end gap-1 uppercase text-xs sm:text-base xl:self-start 2xl:text-2xl"
 							>
 								Conoce más sobre nuestro proceso{" "}
 								<img src="/whiteArrow.svg" className="w-3 sm:w-4" alt="" />
 							</Link>
-							<h2 className="text-goldbackground text-2xl sm:text-5xl text-center mt-4 inline-block xl:text-6xl xl:text-start">
+							<h2 className="text-goldbackground text-2xl sm:text-5xl text-center mt-4 inline-block xl:text-6xl xl:text-start 2xl:text-7xl 2xl:self-start">
 								NUESTROS DISEÑOS INSPIRAN
 							</h2>
-							<p className="text-center font-secundary  sm:text-2xl mt-5 sm:mt-10 xl:text-start xl:w-full xl:text-3xl">
+							<p className="text-center font-secundary  sm:text-2xl mt-5 sm:mt-10 xl:text-start xl:w-full xl:text-3xl 2xl:text-4xl">
 								Transformamos tus ideas en contenido visual que destaca y conecta. Desde
 								el concepto hasta la entrega final, estamos contigo en cada etapa.
 							</p>
@@ -141,23 +144,23 @@ export default function Home() {
 					</section>
 				</div>
 
-				<div className="w-full flex flex-col mt-14 items-center xl:flex-row">
+				<div className="w-full flex flex-col mt-14 items-center xl:flex-row" id="about">
 					<section className="flex flex-col items-center p-8 order-2 xl:w-4/5">
-						<h2 className="text-goldbackground text-2xl sm:text-5xl mt-8 uppercase text-center xl:text-6xl xl:mt-0">
+						<h2 className="text-goldbackground text-2xl sm:text-5xl mt-8 uppercase text-center xl:text-6xl xl:mt-0 2xl:text-7xl">
 							¿Quienes Somos...?
 						</h2>
-						<p className="text-center font-secundary sm:text-2xl mt-2.5 sm:mt-10 w-5/6 xl:text-3xl xl:w-6/6 xl:pl-11 xl:pr-11 xl:mt-15">
+						<p className="text-center font-secundary sm:text-2xl mt-2.5 sm:mt-10 w-5/6 xl:text-3xl xl:w-6/6 xl:pl-11 xl:pr-11 xl:mt-15 2xl:text-4xl">
 							Somos un equipo de creativos apasionados por diseñar y desarrollar
 							experiencias digitales que inspiran. A través del diseño web, el desarrollo
 							tecnológico, la fotografía y el video, construimos narrativas visuales que
 							fortalecen la presencia digital de las marcas y las ayudan a conectar con su
 							audiencia de manera auténtica y memorable.
 						</p>
-						<h3 className="text-[20px] sm:text-3xl font-light mt-10 sm:mt-15 text-center xl:mt-20">
+						<h3 className="text-[20px] sm:text-3xl font-light mt-10 sm:mt-15 text-center xl:mt-20 2xl:text-4xl">
 							De <span className="text-goldbackground">Medellín</span> para el{" "}
 							<span className="text-goldbackground">Mundo.</span>
 						</h3>
-						<h2 className="font-bold text-2xl sm:text-5xl text-center w-2xs sm:w-[430px] mt-1 sm:mt-3">
+						<h2 className="font-bold text-2xl sm:text-5xl text-center w-2xs sm:w-[430px] mt-1 sm:mt-3 2xl:text-6xl">
 							SOMOS GALOS CASA CREATIVA
 						</h2>
 					</section>

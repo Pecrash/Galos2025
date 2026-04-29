@@ -4,16 +4,16 @@ export default function Footer(params) {
 	return (
 		<footer className="flex flex-col bg-[#292929] pt-10 pb-10 xl:p-16 relative">
 			<ul className="text-center flex flex-col gap-6 font-primary xl:text-start">
-				<Link href={"#"} className="uppercase flex flex-col gap-2.5 text-2xl xl:text-3xl">
+				<Link href={"/"} className="uppercase flex flex-col gap-2.5 text-2xl xl:text-3xl">
 					Inicio
 				</Link>
-				<Link href={"#"} className="uppercase flex flex-col gap-2.5 text-2xl xl:text-3xl">
+				<Link href={"/websites"} className="uppercase flex flex-col gap-2.5 text-2xl xl:text-3xl">
 					Desarrollo Web
 				</Link>
-				<Link href={"#"} className="uppercase flex flex-col gap-2.5 text-2xl xl:text-3xl">
+				<Link href={"/photos"} className="uppercase flex flex-col gap-2.5 text-2xl xl:text-3xl">
 					Fotografia y Video
 				</Link>
-				<Link href={"#"} className="uppercase flex flex-col gap-2.5 text-2xl xl:text-3xl">
+				<Link href={"/blog"} className="uppercase flex flex-col gap-2.5 text-2xl xl:text-3xl">
 					Blog
 				</Link>
 				{/* <li>Desarrollo movil</li> */}

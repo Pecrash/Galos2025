@@ -31,7 +31,7 @@ export default function RootLayout({ children }) {
         className={`${sourceSerif.variable} ${oswald.variable} ${caveat.variable} antialiased`}
       >
         <Navigation />
-        <main className="pt-20 lg:pt-24">{children}</main>
+        <main className="">{children}</main>
         <Footer />
       </body>
     </html>
