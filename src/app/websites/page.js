@@ -5,70 +5,71 @@ import Image from "next/image";
 export default function Websites() {
 	return (
 		<main className="bg-foreground">
-			<section className="flex flex-col h-screen w-full relative p-8 bg-background lg:p-16">
-				<p className="border-1 border-goldbackground text-goldbackground font-bold text-sm h-fit w-fit p-2 rounded-lg bg-amber-300/6 lg:mt-10">
+			<section className="flex min-h-[100svh] w-full flex-col overflow-hidden bg-background px-6 py-8 sm:px-8 sm:py-10 lg:px-16 lg:py-14 3xl:px-24 3xl:py-20">
+				<p className="h-fit w-fit rounded-lg border border-goldbackground bg-amber-300/6 p-2 text-xs font-bold text-goldbackground sm:text-sm lg:mt-10">
 					DISEÑO WEB ESTRATÉGICO
 				</p>
-				<h3 className="text-3xl mt-4 font-bold sm:text-5xl sm:w-8/10 xl:w-7/10 xl:text-7xl xl:leading-snug 3xl:w-2/5 3xl:text-7xl 3xl:mt-5">
+				<h3 className="mt-4 max-w-[16ch] text-3xl font-bold leading-tight text-pretty xs:text-4xl sm:text-5xl md:max-w-[18ch] lg:text-6xl xl:text-7xl xl:leading-[1.08] 3xl:text-8xl">
 					DISEÑAMOS Y DESARROLLAMOS{" "}
 					<span className="text-goldbackground italic">experiencias</span> WEB QUE
 					IMPULSAN TU MARCA.
 				</h3>
-				<ul className="flex text-white/35 gap-4">
+				<ul className="mt-5 flex max-w-3xl flex-wrap gap-x-4 gap-y-2 text-xs font-semibold text-white/35 sm:text-sm lg:text-base">
 					<li>UI UX</li>
 					<li>SEO</li>
 					<li>ACCESIBILIDAD</li>
 					<li>RENDIMIENTO</li>
 					<li>ESCALABILIDAD</li>
 				</ul>
-				<p className="pt-6 border-t-[1px] w-1/2 border-white/20 text-foreground/60 text-2xl">
+				<p className="mt-6 max-w-2xl border-t border-white/20 pt-5 font-secundary text-lg text-foreground/60 sm:text-xl lg:text-2xl">
 					Creamos sitios web estratégicos, funcionales y visualmente potentes,
 					<br /> pensados para convertir visitas en oportunidades reales.
 				</p>
-				<div className="flex gap-4 mt-10">
+				<div className="mt-8 flex flex-col gap-3 xs:flex-row xs:flex-wrap sm:gap-4 lg:mt-10">
 					<Link
 						href="/contact"
-						className="flex items-center justify-center gap-2 bg-goldbackground text-blackText font-bold px-6 rounded-lg hover:bg-blackText hover:text-goldbackground transition-colors"
+						className="flex min-h-12 items-center justify-center gap-2 rounded-lg bg-goldbackground px-5 py-3 text-center font-bold text-blackText transition-colors hover:bg-blackText duration-500 ease-in-out hover:text-goldbackground sm:px-6"
 					>
 						Agenda tu consulta
 						<img src="/circleBlackArrow.svg" alt="" />
 					</Link>
 					<Link
 						href="/projects"
-						className=" shrink-0 border border-graybackground/60 text-graybackground font-bold py-3 px-6 rounded-lg hover:bg-foreground hover:text-blackText transition-colors"
+						className="flex min-h-12 items-center justify-center rounded-lg border border-graybackground/60 px-5 py-3 text-center font-bold text-graybackground transition-colors hover:bg-foreground duration-500 ease-in-out hover:text-blackText sm:px-6"
 					>
 						Nuestros Proyectos
 					</Link>
 				</div>
+				<div className="min-h-[clamp(13rem,34svh,24rem)] flex-1 md:min-h-[28svh]" aria-hidden="true" />
 			</section>
 
-			<section className="flex flex-col gap-4 bg-background p-8 lg:p-16 lg:py-28 relative before:absolute before:w-4/5 before:-translate-x-1/2 before:left-1/2 before:h-[1px] before:bg-white before:opacity-20 before:top-0">
-				<span className="uppercase ml-20 w-fit text-goldbackground relative h-fit before:absolute before:w-16 before:h-0.5 before:bg-goldbackground before:top-1/2 before:-translate-y-full before:-left-20">
+			<section className="relative flex flex-col gap-8 bg-background px-6 py-16 before:absolute before:left-1/2 before:top-0 before:h-[1px] before:w-4/5 before:-translate-x-1/2 before:bg-white before:opacity-20 sm:px-8 sm:py-20 lg:px-16 lg:py-28 3xl:px-24 3xl:py-36">
+				<span className="relative ml-16 h-fit w-fit text-sm uppercase text-goldbackground before:absolute before:-left-16 before:top-1/2 before:h-0.5 before:w-12 before:-translate-y-full before:bg-goldbackground sm:ml-20 sm:text-base sm:before:-left-20 sm:before:w-16">
 					propuesta de valor
 				</span>
-				<div className="xl:w-full">
-					<article className="w-fit flex ">
-						<h3 className="text-center w-2/3 mt-1 text-2xl xl:text-5xl xl:text-start xl:mt-4 3xl:text-7xl font-bold text-foreground">
+				<div className="mx-auto w-full max-w-[1800px]">
+					<article className="mt-5 grid gap-5 lg:grid-cols-[minmax(0,0.9fr)_minmax(22rem,0.8fr)] lg:items-end lg:gap-12 2xl:gap-20">
+						<h3 className="max-w-4xl text-3xl font-bold leading-tight text-foreground text-balance sm:text-4xl md:text-5xl xl:text-6xl 3xl:text-7xl">
 							Nos enfocamos en hacer de esto un proceso{" "}
 							<span className="text-goldbackground">simple</span> y{" "}
 							<span className="text-goldbackground">efectivo</span>.
 						</h3>
-						<p className="font-secundary text-center mt-3 xl:text-start sm:text-xl xl:mt-8 xl:max-w-[900px] 3xl:mt-10 3xl:mx-auto 3xl:min-w-3xl">
+						<p className="max-w-3xl font-secundary text-base leading-relaxed text-foreground/75 sm:text-xl lg:text-2xl 3xl:text-3xl">
 							Diseñamos experiencias digitales pensadas para verse bien, funcionar mejor y
 							crecer junto a tu negocio. Cuatro pilares que sostienen cada proyecto.
 							Sabiendo que cada marca es única, adaptamos cada proceso a tus necesidades y
 							objetivos específicos.
 						</p>
 					</article>
-					<div className="flex overflow-hidden items-center 3xl:mt-24 3xl:gap-10 justify-center">
-						<article className="flex flex-col  flex-1 relative bg-blackText shrink-0 3xl:h-96 3xl:rounded-3xl 3xl:p-12 after:absolute after:h-0.5 after:w-3/4 after:bg-goldbackground after:bottom-5 after:left-1/2 after:-translate-x-1/2">
-							<h3 className="text-4xl font-semibold mt-12">Accesibilidad</h3>
-							<p className="3xl:text-xl 3xl:mt-6 opacity-70">
+					<div className="mt-10 grid gap-4 sm:grid-cols-2 lg:mt-16 xl:grid-cols-4 2xl:gap-6 3xl:mt-24 3xl:gap-10">
+						<article className="relative flex min-h-72 flex-col rounded-2xl bg-blackText p-6 after:absolute after:bottom-5 after:left-1/2 after:h-0.5 after:w-3/4 after:-translate-x-1/2 after:bg-goldbackground sm:min-h-80 lg:p-8 3xl:min-h-96 3xl:rounded-3xl 3xl:p-12">
+							<h3 className="mt-12 text-3xl font-semibold sm:text-4xl xl:text-3xl 2xl:text-4xl">Accesibilidad</h3>
+							<p className="mt-4 text-base leading-relaxed opacity-70 sm:text-lg xl:text-base 3xl:text-xl">
 								Sitios pensados para todas las personas, cumpliendo estándares WCAG sin
 								sacrificar estética.
 							</p>
-							<div className="-order-1 flex text-goldbackground w-full justify-between 3xl:text-3xl font-semibold">
-								<span className="bg-background flex items-center justify-center w-12 h-12 rounded-xl">
+							<div className="-order-1 flex w-full justify-between text-xl font-semibold text-goldbackground sm:text-2xl 3xl:text-3xl">
+								<span className="flex size-12 items-center justify-center rounded-xl bg-background sm:size-14">
 									<img className="w-3/5" src="/accessibility.svg" alt="" />
 								</span>
 								<p className="relative h-fit before:absolute before:w-2/3 before:h-0.5 before:bg-goldbackground before:top-1/2 before:-translate-y-full before:-left-full">
@@ -76,14 +77,14 @@ export default function Websites() {
 								</p>
 							</div>
 						</article>
-						<article className="flex flex-col  flex-1 relative bg-blackText shrink-0 3xl:h-96 3xl:rounded-3xl 3xl:p-12 after:absolute after:h-0.5 after:w-3/4 after:bg-goldbackground after:bottom-5 after:left-1/2 after:-translate-x-1/2">
-							<h3 className="text-4xl font-semibold mt-12">Rendimiento</h3>
-							<p className="3xl:text-xl 3xl:mt-6 opacity-70">
+						<article className="relative flex min-h-72 flex-col rounded-2xl bg-blackText p-6 after:absolute after:bottom-5 after:left-1/2 after:h-0.5 after:w-3/4 after:-translate-x-1/2 after:bg-goldbackground sm:min-h-80 lg:p-8 3xl:min-h-96 3xl:rounded-3xl 3xl:p-12">
+							<h3 className="mt-12 text-3xl font-semibold sm:text-4xl xl:text-3xl 2xl:text-4xl">Rendimiento</h3>
+							<p className="mt-4 text-base leading-relaxed opacity-70 sm:text-lg xl:text-base 3xl:text-xl">
 								Carga veloz, métricas Core Web Vitals optimizadas y experiencia fluida en
 								cualquier dispositivo.
 							</p>
-							<div className="-order-1 flex text-goldbackground w-full justify-between 3xl:text-3xl font-semibold">
-								<span className="bg-background flex items-center justify-center w-12 h-12 rounded-xl">
+							<div className="-order-1 flex w-full justify-between text-xl font-semibold text-goldbackground sm:text-2xl 3xl:text-3xl">
+								<span className="flex size-12 items-center justify-center rounded-xl bg-background sm:size-14">
 									<img className="w-3/5" src="/performance.svg" alt="" />
 								</span>
 								<p className="relative h-fit before:absolute before:w-2/3 before:h-0.5 before:bg-goldbackground before:top-1/2 before:-translate-y-full before:-left-full">
@@ -91,14 +92,14 @@ export default function Websites() {
 								</p>
 							</div>
 						</article>
-						<article className="flex flex-col  flex-1 relative bg-blackText shrink-0 3xl:h-96 3xl:rounded-3xl 3xl:p-12 after:absolute after:h-0.5 after:w-3/4 after:bg-goldbackground after:bottom-5 after:left-1/2 after:-translate-x-1/2">
-							<h3 className="text-4xl font-semibold mt-12">SEO</h3>
-							<p className="3xl:text-xl 3xl:mt-6 opacity-70">
+						<article className="relative flex min-h-72 flex-col rounded-2xl bg-blackText p-6 after:absolute after:bottom-5 after:left-1/2 after:h-0.5 after:w-3/4 after:-translate-x-1/2 after:bg-goldbackground sm:min-h-80 lg:p-8 3xl:min-h-96 3xl:rounded-3xl 3xl:p-12">
+							<h3 className="mt-12 text-3xl font-semibold sm:text-4xl xl:text-3xl 2xl:text-4xl">SEO</h3>
+							<p className="mt-4 text-base leading-relaxed opacity-70 sm:text-lg xl:text-base 3xl:text-xl">
 								Arquitectura semántica, contenido estructurado y base técnica lista para
 								posicionar.
 							</p>
-							<div className="-order-1 flex text-goldbackground w-full justify-between 3xl:text-3xl font-semibold">
-								<span className="bg-background flex items-center justify-center w-12 h-12 rounded-xl">
+							<div className="-order-1 flex w-full justify-between text-xl font-semibold text-goldbackground sm:text-2xl 3xl:text-3xl">
+								<span className="flex size-12 items-center justify-center rounded-xl bg-background sm:size-14">
 									<img className="w-3/5" src="/seo.svg" alt="" />
 								</span>
 								<p className="relative h-fit before:absolute before:w-2/3 before:h-0.5 before:bg-goldbackground before:top-1/2 before:-translate-y-full before:-left-full">
@@ -106,14 +107,14 @@ export default function Websites() {
 								</p>
 							</div>
 						</article>
-						<article className="flex flex-col  flex-1 relative bg-blackText shrink-0 3xl:h-96 3xl:rounded-3xl 3xl:p-12 after:absolute after:h-0.5 after:w-3/4 after:bg-goldbackground after:bottom-5 after:left-1/2 after:-translate-x-1/2">
-							<h3 className="text-4xl font-semibold mt-12">Escalabilidad</h3>
-							<p className="3xl:text-xl 3xl:mt-6 opacity-70">
+						<article className="relative flex min-h-72 flex-col rounded-2xl bg-blackText p-6 after:absolute after:bottom-5 after:left-1/2 after:h-0.5 after:w-3/4 after:-translate-x-1/2 after:bg-goldbackground sm:min-h-80 lg:p-8 3xl:min-h-96 3xl:rounded-3xl 3xl:p-12">
+							<h3 className="mt-12 text-3xl font-semibold sm:text-4xl xl:text-3xl 2xl:text-4xl">Escalabilidad</h3>
+							<p className="mt-4 text-base leading-relaxed opacity-70 sm:text-lg xl:text-base 3xl:text-xl">
 								Sistemas modulares que crecen contigo, sin rehacer todo al sumar productos
 								o secciones.
 							</p>
-							<div className="-order-1 flex text-goldbackground w-full justify-between 3xl:text-3xl font-semibold">
-								<span className="bg-background flex items-center justify-center w-12 h-12 rounded-xl">
+							<div className="-order-1 flex w-full justify-between text-xl font-semibold text-goldbackground sm:text-2xl 3xl:text-3xl">
+								<span className="flex size-12 items-center justify-center rounded-xl bg-background sm:size-14">
 									<img className="w-3/5" src="/scalability.svg" alt="" />
 								</span>
 								<p className="relative h-fit before:absolute before:w-2/3 before:h-0.5 before:bg-goldbackground before:top-1/2 before:-translate-y-full before:-left-full">
