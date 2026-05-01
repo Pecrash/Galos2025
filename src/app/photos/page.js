@@ -53,6 +53,7 @@ export default function Photos() {
 				<Image
 					src={"/photos/photosWelcome.png"}
 					fill
+					sizes="100vw"
 					alt=""
 					className="object-cover absolute top-0 left-0 -z-1"
 				/>
@@ -79,7 +80,7 @@ export default function Photos() {
 				</div>
 			</section>
 
-			<section className="bg-foreground p-8 pt-16 sm:p-16 sm:pt-24">
+			<section data-header-theme="dark" className="bg-foreground p-8 pt-16 sm:p-16 sm:pt-24">
 				<h2 className="text-2xl text-blackText font-semibold sm:text-5xl 2xl:text-7xl">
 					NUESTROS SERVICIOS
 				</h2>
@@ -193,6 +194,7 @@ export default function Photos() {
 						className="object-cover absolute top-0 left-0 -z-10"
 						src={"/photos/linkPhoto2.jpg"}
 						fill
+						sizes="(min-width: 1280px) 40vw, (min-width: 640px) 66vw, 100vw"
 						alt="#"
 					/>
 					<p className="text-2xl font-semibold text-center mt-auto">
@@ -206,6 +208,7 @@ export default function Photos() {
 						className="object-cover absolute top-0 left-0 -z-10"
 						src={"/photos/linkPhoto3.jpg"}
 						fill
+						sizes="(min-width: 1280px) 25vw, (min-width: 640px) 33vw, 50vw"
 						alt="#"
 					/>
 					<p className="text-xl font-semibold text-center mt-auto">
@@ -218,6 +221,7 @@ export default function Photos() {
 						className="object-cover absolute top-0 left-0 -z-10"
 						src={"/photos/linkPhoto4.jpg"}
 						fill
+						sizes="(min-width: 1280px) 25vw, (min-width: 640px) 33vw, 50vw"
 						alt="#"
 					/>
 					<p className="text-xl font-semibold text-center mt-auto">Reserva tu Sesión</p>
@@ -228,6 +232,7 @@ export default function Photos() {
 						className="object-cover absolute top-0 left-0 -z-10"
 						src={"/photos/linkPhoto1.jpg"}
 						fill
+						sizes="(min-width: 1280px) 25vw, (min-width: 640px) 33vw, 100vw"
 						alt="#"
 					/>
 					<p className="text-2xl font-semibold text-center mt-auto">

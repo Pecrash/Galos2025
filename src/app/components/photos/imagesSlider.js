@@ -2,15 +2,11 @@
 
 // import Swiper JS
 import { Swiper, SwiperSlide } from "swiper/react";
-// import Swiper styles
 import "swiper/css";
-import { Navigation, EffectCoverflow, Autoplay } from "swiper/modules";
-// import Swiper and modules styles
-import "swiper/css";
+import { Autoplay } from "swiper/modules";
 import "swiper/css/effect-coverflow";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import { useRef, useEffect } from "react";
 import Image from "next/image";
 
 export default function SwiperSlider(params) {
@@ -36,6 +32,10 @@ export default function SwiperSlider(params) {
 			id: 4,
             title: "Servicio 1"
 		},
+		{ id: "placeholder-1", isPlaceholder: true },
+		{ id: "placeholder-2", isPlaceholder: true },
+		{ id: "placeholder-3", isPlaceholder: true },
+		{ id: "placeholder-4", isPlaceholder: true },
 	];
 
     return (
@@ -69,12 +69,17 @@ export default function SwiperSlider(params) {
 					{services.map((service) => (
 						<SwiperSlide key={service.id} className=" rounded-lg">
 							<div className="h-[380px] w-full rounded-lg relative overflow-hidden sm:h-[500px] lg:h-[600px] xl:h-full xl:rounded-none">
-								<Image
-									fill
-									className="object-cover object-top"
-									src={service.src}
-									alt={service.title}
-								></Image>
+								{service.isPlaceholder ? (
+									<div className="h-full w-full border border-goldbackground/30 bg-background/10" />
+								) : (
+									<Image
+										fill
+										sizes="(min-width: 1280px) 40vw, 100vw"
+										className="object-cover object-top"
+										src={service.src}
+										alt={service.title}
+									/>
+								)}
 							</div>
 						</SwiperSlide>
 					))}

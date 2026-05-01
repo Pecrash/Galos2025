@@ -2,20 +2,15 @@
 
 // import Swiper JS
 import { Swiper, SwiperSlide } from "swiper/react";
-// import Swiper styles
 import "swiper/css";
-import { Navigation, FreeMode, Autoplay } from "swiper/modules";
-// import Swiper and modules styles
-import "swiper/css";
+import { FreeMode, Autoplay } from "swiper/modules";
 import "swiper/css/effect-coverflow";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
 
 export default function DesignsCarousel() {
 	const swiperRef = useRef(null);
-	const prevSlider = useRef(null);
-	const nextSlider = useRef(null);
 
 	/* useEffect(() => {
 		const sw = swiperRef.current;
@@ -33,8 +28,6 @@ export default function DesignsCarousel() {
 			} catch {}
 		};
 	}, []); */
-
-	const ancho = "275";
 
 	return (
 		<div className="w-full overflow-hidden xl:p-0 xl:w-6/10 relative xl:before:left-0 xl:before:content-[''] xl:self-center xl:before:w-28 xl:before:absolute xl:before:h-full xl:before:z-30 xl:before:bg-linear-to-l xl:before:from-[#24242400] xl:before:to-[#242424]">
@@ -82,6 +75,15 @@ export default function DesignsCarousel() {
 				<SwiperSlide className="!w-auto relative">
 					{/* <div className="bg-gray-600 w-[250px] rounded-3xl border-goldbackground border-2 h-[450px] sm:h-[560px]" /> */}
 					<video className="h-52 sm:h-[360px] w-auto rounded-2xl" autoPlay loop muted src="/videos/fruit-soda.mp4"></video>
+				</SwiperSlide>
+				<SwiperSlide className="!w-auto relative">
+					<div className="h-52 w-36 rounded-2xl border border-goldbackground/30 bg-foreground/5 sm:h-[360px] sm:w-64" />
+				</SwiperSlide>
+				<SwiperSlide className="!w-auto relative">
+					<div className="h-52 w-36 rounded-2xl border border-goldbackground/30 bg-foreground/5 sm:h-[360px] sm:w-64" />
+				</SwiperSlide>
+				<SwiperSlide className="!w-auto relative">
+					<div className="h-52 w-36 rounded-2xl border border-goldbackground/30 bg-foreground/5 sm:h-[360px] sm:w-64" />
 				</SwiperSlide>
 			</Swiper>
 			{/* <div className="flex justify-center gap-4 mt-4">

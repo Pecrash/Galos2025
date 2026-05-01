@@ -11,7 +11,14 @@ export default function Home() {
 			<main className="flex flex-col gap-6 relative items-start sm:items-start">
 				<div className="flex flex-col gap-6 p-8 xl:p-16 xl:h-screen relative after:to-background 2xl:p-24">
 					<div className="absolute -z-10 h-full w-4/5 top-0 left-0">
-						<Image src="/photos/detrasDeCamara.png" alt="" fill className=" object-cover" />
+						<Image
+							src="/photos/detrasDeCamara.png"
+							alt=""
+							fill
+							sizes="80vw"
+							className=" object-cover"
+							loading="eager"
+						/>
 					</div>
 					<HomeTitle />
 					<p className="font-secundary text-center sm:text-3xl xl:text-start xl:w-4/6 xl:bottom-0 xl:mt-auto xl:inset-x-0 xl:relative 2xl:text-4xl 2xl:w-4/7">
@@ -26,11 +33,21 @@ export default function Home() {
 						</span>
 					</button> */}
 					<ul className="flex flex-col w-max relative left-[70%] items-end gap-2 sm:gap-4 text-lg sm:text-3xl xl:right-16 xl:left-auto xl:top-[55vh] xl:absolute 2xl:text-4xl">
-						<li className="w-max "><a href="#photos">Fotografía</a></li>
-						<li className="w-max "><a href="#video">Video</a></li>
-						<li className="w-max "><a href="#websites">Desarrollo Web</a></li>
-						<li className="w-max "><a href="#ui-ux">Ui-Ux</a></li>
-						<li className="w-max "><a href="#about">Sobre Nosotros</a></li>
+						<li className="w-max ">
+							<a href="#photos">Fotografía</a>
+						</li>
+						<li className="w-max ">
+							<a href="#video">Video</a>
+						</li>
+						<li className="w-max ">
+							<a href="#websites">Desarrollo Web</a>
+						</li>
+						<li className="w-max ">
+							<a href="#ui-ux">Ui-Ux</a>
+						</li>
+						<li className="w-max ">
+							<a href="#about">Sobre Nosotros</a>
+						</li>
 					</ul>
 				</div>
 
@@ -46,6 +63,7 @@ export default function Home() {
 							src="/photos/home1.png"
 							alt="Cámara"
 							fill
+							sizes="100vw"
 							className="object-contain object-right"
 						/>
 					</div>
@@ -168,6 +186,7 @@ export default function Home() {
 						<Image
 							alt="detrás de cámara"
 							fill
+							sizes="(min-width: 1280px) 50vw, 100vw"
 							src={"/photos/detrasDeCamara1.jpg"}
 							className="object-cover object-[75%] grayscale-25"
 						/>

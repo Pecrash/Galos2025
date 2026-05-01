@@ -2,16 +2,11 @@
 
 // import Swiper JS
 import { Swiper, SwiperSlide } from "swiper/react";
-// import Swiper styles
 import "swiper/css";
-import { Navigation, EffectCoverflow, Autoplay } from "swiper/modules";
-// import Swiper and modules styles
-import "swiper/css";
+import { Autoplay } from "swiper/modules";
 import "swiper/css/effect-coverflow";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import { useRef, useEffect } from "react";
-import Image from "next/image";
 
 export default function TitlesSlider(params) {
 
@@ -36,6 +31,10 @@ export default function TitlesSlider(params) {
             number: "04",
             title: "No es solo contenido, es cómo te recuerdan."
 		},
+		{ id: "placeholder-1", isPlaceholder: true },
+		{ id: "placeholder-2", isPlaceholder: true },
+		{ id: "placeholder-3", isPlaceholder: true },
+		{ id: "placeholder-4", isPlaceholder: true },
 	];
 
     return (
@@ -69,8 +68,16 @@ export default function TitlesSlider(params) {
 					{services.map((service) => (
 						<SwiperSlide key={service.id} className=" rounded-lg">
 							<div className=" pl-8 flex items-end h-32 w-full rounded-lg relative overflow-hidden sm:h-[150px] 2xl:h-[200px]">
-								<p className="text-8xl font-bold sm:text-9xl 2xl:text-[188px]">{service.number}</p>
-                                <h2 className="text-2xl h-fit pb-3 pl-3 sm:text-4xl sm:pb-6 sm:pl-6 uppercase xl:font-bold xl:text-5xl 2xl:text-5xl">{service.title}</h2>
+								{!service.isPlaceholder && (
+									<>
+										<p className="text-8xl font-bold sm:text-9xl 2xl:text-[188px]">
+											{service.number}
+										</p>
+										<h2 className="text-2xl h-fit pb-3 pl-3 sm:text-4xl sm:pb-6 sm:pl-6 uppercase xl:font-bold xl:text-5xl 2xl:text-5xl">
+											{service.title}
+										</h2>
+									</>
+								)}
 							</div>
 						</SwiperSlide>
 					))}

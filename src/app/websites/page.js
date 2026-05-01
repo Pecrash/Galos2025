@@ -129,7 +129,7 @@ export default function Websites() {
 				</section> */}
 			</section>
 
-			<section className="bg-goldbackground p-8 lg:p-16">
+			<section data-header-theme="dark" className="bg-goldbackground p-8 lg:p-16">
 				<section>
 					<h2 className="text-blackText text-center text-2xl font-semibold sm:text-4xl lg:text-5xl lg:mt-16 xl:text-start 3xl:text-7xl">
 						DISEÑO UI-UX
@@ -148,6 +148,7 @@ export default function Websites() {
 						<Image
 							src="/iaImages/galoBottom.png"
 							fill
+							sizes="(min-width: 1280px) 50vw, 100vw"
 							className="object-contain object-top"
 							alt=""
 						/>
@@ -333,7 +334,7 @@ export default function Websites() {
 
 			{/* <WebsiteSlider /> */}
 
-			<section className="bg-foreground p-8 lg:p-16">
+			<section data-header-theme="dark" className="bg-foreground p-8 lg:p-16">
 				<h2 className="text-2xl font-semibold mt-4 text-center text-blackText sm:text-4xl lg:text-5xl lg:mt-16 3xl:text-6xl">
 					TUS OBJETIVOS SON <br /> NUESTRA PRIORIDAD
 				</h2>

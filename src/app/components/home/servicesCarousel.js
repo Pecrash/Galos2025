@@ -2,11 +2,8 @@
 
 // import Swiper JS
 import { Swiper, SwiperSlide } from "swiper/react";
-// import Swiper styles
 import "swiper/css";
 import { Navigation, EffectCoverflow } from "swiper/modules";
-// import Swiper and modules styles
-import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -68,6 +65,10 @@ export default function ServicesCarousel() {
 			description: "Historias breves y dinámicas que impulsan tu marca.",
 			cliente: "Nuestra Casa Creativa",
 		},
+		{ id: "placeholder-1", isPlaceholder: true },
+		{ id: "placeholder-2", isPlaceholder: true },
+		{ id: "placeholder-3", isPlaceholder: true },
+		{ id: "placeholder-4", isPlaceholder: true },
 	];
 
 	useEffect(() => {
@@ -134,18 +135,29 @@ export default function ServicesCarousel() {
 					{services.map((service) => (
 						<SwiperSlide key={service.id} className=" rounded-lg">
 							<div className="h-[465px] sm:h-[600px] xl:h-[500px] rounded-lg relative overflow-hidden">
-								<Image
-									fill
-									className="object-cover"
-									src={service.src}
-									alt={service.title}
-								></Image>
+								{service.isPlaceholder ? (
+									<div className="h-full w-full rounded-lg border border-goldbackground/30 bg-foreground/5" />
+								) : (
+									<Image
+										fill
+										sizes="(min-width: 1280px) 380px, (min-width: 768px) 33vw, 85vw"
+										className="object-cover"
+										src={service.src}
+										alt={service.title}
+									/>
+								)}
 							</div>
-							<h3 className="text-lg sm:text-2xl sm:w-4/5 mt-2 font-semibold mb-2 xl:mt-7 xl:text-xl uppercase">
-								{service.title}
-							</h3>
-							<p className="w-5/6 font-secundary sm:text-lg">{service.description}</p>
-							<p className="text-sm sm:text-base mt-1 text-gray-400 font-secundary font-normal">{service.cliente}</p>
+							{!service.isPlaceholder && (
+								<>
+									<h3 className="text-lg sm:text-2xl sm:w-4/5 mt-2 font-semibold mb-2 xl:mt-7 xl:text-xl uppercase">
+										{service.title}
+									</h3>
+									<p className="w-5/6 font-secundary sm:text-lg">{service.description}</p>
+									<p className="text-sm sm:text-base mt-1 text-gray-400 font-secundary font-normal">
+										{service.cliente}
+									</p>
+								</>
+							)}
 						</SwiperSlide>
 					))}
 				</Swiper>

@@ -3,15 +3,12 @@
 import { useRef } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
-import Observer from "gsap/Observer";
 import { useGSAP } from "@gsap/react";
 
-gsap.registerPlugin(useGSAP, Observer, ScrollTrigger); // register the hook to avoid React version discrepancies
+gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 export default function WebsiteSlider(params) {
 	const container = useRef();
-	let count = 0;
-	const observerRef = useRef();
 
 	/* useGSAP(
 		() => {
@@ -37,7 +34,6 @@ export default function WebsiteSlider(params) {
 				onEnterBack: () => (animating = false, enter = 1),
 				onLeave: () => (enter = 0),
 				onLeaveBack: () => (enter = 0),
-				markers: true,
 			});
 
 			observerRef.current = Observer.create({
@@ -87,7 +83,6 @@ export default function WebsiteSlider(params) {
 			gsap
 				.timeline({
 					scrollTrigger: {
-                        markers: true,
 						trigger: container.current,
 						start: "top top",
 						end: "+=1400",

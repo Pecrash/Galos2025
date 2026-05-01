@@ -1,6 +1,6 @@
 "use client";
 
-import { use, useRef } from "react";
+import { useRef } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -20,7 +20,6 @@ export default function PhotosSlider(params) {
 			gsap
 				.timeline({
 					scrollTrigger: {
-						markers: true,
 						trigger: videosContainer.current,
 						start: "top top",
 						end: "+=1400",
@@ -49,6 +48,7 @@ export default function PhotosSlider(params) {
 	return (
 		<section
 			ref={videosContainer}
+			data-header-theme="dark"
 			className="flex  overflow-hidden bg-foreground w-full p-8 gap-4 items-center relative h-screen"
 		>
 			<div
