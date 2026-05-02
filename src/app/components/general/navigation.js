@@ -1,497 +1,291 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
-import ScrollTrigger from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import Lottie from "lottie-web";
+import Lottie from "lottie-react";
+import animationData from "../../../../public/lottie/menuAnimation.json";
 
-gsap.registerPlugin(useGSAP, ScrollTrigger);
+gsap.registerPlugin(useGSAP);
 
-const routes = [
-	{ href: "/", label: "Home", eyebrow: "Punto de partida" },
-	{ href: "/photos", label: "Fotos", eyebrow: "Archivo visual" },
-	{ href: "/websites", label: "Diseño Web", eyebrow: "Experiencias digitales" },
-	{ href: "/blog", label: "Blog", eyebrow: "Ideas & reflexiones" },
-];
-
-const socials = [
-	{ href: "https://www.instagram.com/", label: "Instagram" },
-	{ href: "https://www.behance.net/", label: "Behance" },
-	{ href: "https://www.linkedin.com/", label: "LinkedIn" },
+const menuLinks = [
+	{ href: "/", label: "Home", description: "Punto de partida" },
+	{ href: "/photos", label: "Fotos", description: "Archivo visual" },
+	{ href: "/websites", label: "Diseño Web", description: "Experiencias digitales" },
+	{ href: "/blog", label: "Blog", description: "Ideas & reflexiones" },
 ];
 
 export default function Navigation() {
 	const pathname = usePathname();
-	const router = useRouter();
 	const navRef = useRef(null);
+	const lottieRef = useRef(null);
 	const panelRef = useRef(null);
-	const menuIconRef = useRef(null);
-	const menuAnimationRef = useRef(null);
-	const menuTweenRef = useRef(null);
-	const isOpenRef = useRef(false);
 	const [isOpen, setIsOpen] = useState(false);
-	const [isHidden, setIsHidden] = useState(false);
-	const [headerTheme, setHeaderTheme] = useState("light");
-	const [hasMounted, setHasMounted] = useState(false);
 
-	const panelBaseStyle = {
-		pointerEvents: isOpen ? "auto" : "none",
-		zIndex: 9990,
-		...(hasMounted
-			? {}
-			: {
-					opacity: 0,
-					visibility: "hidden",
-					transform: "translate3d(100%, 0, 0)",
-				}),
+	const isRouteActive = (href) => {
+		if (href === "/") return pathname === "/";
+		return pathname === href || pathname?.startsWith(`${href}/`);
 	};
 
-	const menuSelectors = useCallback(() => {
+	useEffect(() => {
+		if (!isOpen) return;
+
+		const body = document.body;
+		const html = document.documentElement;
+
+		const originalBodyOverflow = body.style.overflow;
+		const originalHtmlOverflow = html.style.overflow;
+		const originalPaddingRight = body.style.paddingRight;
+
+		const scrollbarWidth = window.innerWidth - html.clientWidth;
+
+		body.style.overflow = "hidden";
+		html.style.overflow = "hidden";
+
+		if (scrollbarWidth > 0) {
+			body.style.paddingRight = `${scrollbarWidth}px`;
+		}
+
+		return () => {
+			body.style.overflow = originalBodyOverflow;
+			html.style.overflow = originalHtmlOverflow;
+			body.style.paddingRight = originalPaddingRight;
+		};
+	}, [isOpen]);
+
+	useGSAP(
+		() => {
+			gsap.set(panelRef.current, { autoAlpha: 0, xPercent: 100 });
+		},
+		{ scope: panelRef }
+	);
+
+	const { contextSafe } = useGSAP({ scope: navRef });
+
+	const animatePanel = contextSafe((open) => {
 		const panel = panelRef.current;
-		return {
-			links: panel ? panel.querySelectorAll(".menu-link") : [],
-			placeholder: panel ? panel.querySelectorAll(".menu-placeholder") : [],
-			socials: panel ? panel.querySelectorAll(".menu-social") : [],
-		};
-	}, []);
+		if (!panel) return;
 
-	const headerColorClass =
-		isOpen || headerTheme === "light" ? "text-foreground" : "text-blackText";
-	const iconFilter = !isOpen && headerTheme === "dark" ? "invert(1)" : "none";
+		const links = panel.querySelectorAll(".navigation-panel-link");
+		const details = panel.querySelectorAll(".navigation-panel-detail");
+		const illustration = panel.querySelector(".navigation-illustration");
 
-	const isRouteActive = useCallback(
-		(href) => {
-			if (href === "/") return pathname === "/";
-			return pathname === href || pathname?.startsWith(`${href}/`);
-		},
-		[pathname]
-	);
+		lottieRef.current?.setDirection(open ? 1 : -1);
+		lottieRef.current?.play();
 
-	const playMenuIcon = useCallback((open) => {
-		const animation = menuAnimationRef.current;
-		if (!animation) return;
+		gsap.killTweensOf([panel, links, details, illustration]);
 
-		const lastFrame = Math.max(animation.totalFrames - 1, 0);
-		if (!lastFrame) return;
+		if (open) {
+			setIsOpen(true);
 
-		animation.setSpeed(open ? 1.65 : 2.2);
-		animation.setDirection(open ? 1 : -1);
-		animation.goToAndPlay(open ? 0 : lastFrame, true);
-	}, []);
-
-	const setMenuOpen = useCallback(
-		(open) => {
-			isOpenRef.current = open;
-			playMenuIcon(open);
-			setIsOpen(open);
-		},
-		[playMenuIcon]
-	);
-
-	useEffect(() => {
-		isOpenRef.current = isOpen;
-	}, [isOpen]);
-
-	useEffect(() => {
-		setHasMounted(true);
-	}, []);
-
-	useEffect(() => {
-		if (!menuIconRef.current) return;
-
-		menuAnimationRef.current = Lottie.loadAnimation({
-			container: menuIconRef.current,
-			renderer: "svg",
-			loop: false,
-			autoplay: false,
-			path: "/lottie/menuAnimation.json",
-			rendererSettings: {
-				progressiveLoad: true,
-				preserveAspectRatio: "xMidYMid meet",
-			},
-		});
-
-		menuAnimationRef.current.addEventListener("DOMLoaded", () => {
-			const animation = menuAnimationRef.current;
-			if (!animation) return;
-
-			const lastFrame = Math.max(animation.totalFrames - 1, 0);
-			animation.goToAndStop(isOpenRef.current ? lastFrame : 0, true);
-		});
-
-		return () => {
-			menuAnimationRef.current?.destroy();
-			menuAnimationRef.current = null;
-		};
-	}, []);
-
-	useEffect(() => {
-		let lastScrollY = window.scrollY;
-		let ticking = false;
-
-		const updateHeaderVisibility = () => {
-			if (isOpen) {
-				ticking = false;
-				return;
-			}
-
-			const currentScrollY = window.scrollY;
-			const delta = currentScrollY - lastScrollY;
-
-			if (Math.abs(delta) > 8) {
-				setIsHidden(delta > 0 && currentScrollY > 90);
-				lastScrollY = currentScrollY;
-			}
-
-			ticking = false;
-		};
-
-		const onScroll = () => {
-			if (!ticking) {
-				window.requestAnimationFrame(updateHeaderVisibility);
-				ticking = true;
-			}
-		};
-
-		window.addEventListener("scroll", onScroll, { passive: true });
-		return () => window.removeEventListener("scroll", onScroll);
-	}, [isOpen]);
-
-	useEffect(() => {
-		if (isOpen) setIsHidden(false);
-		document.body.style.overflow = isOpen ? "hidden" : "";
-
-		return () => {
-			document.body.style.overflow = "";
-		};
-	}, [isOpen]);
-
-	useEffect(() => {
-		const themedSections = gsap.utils.toArray("[data-header-theme]");
-
-		const updateThemeFromViewport = () => {
-			const markerY = Math.min(88, window.innerHeight * 0.18);
-			const activeSection = themedSections.find((section) => {
-				const rect = section.getBoundingClientRect();
-				return rect.top <= markerY && rect.bottom >= markerY;
-			});
-
-			setHeaderTheme(activeSection?.dataset.headerTheme || "light");
-		};
-
-		const triggers = themedSections.map((section) =>
-			ScrollTrigger.create({
-				trigger: section,
-				start: "top 88px",
-				end: "bottom 88px",
-				onEnter: updateThemeFromViewport,
-				onEnterBack: updateThemeFromViewport,
-				onLeave: updateThemeFromViewport,
-				onLeaveBack: updateThemeFromViewport,
-				onRefresh: updateThemeFromViewport,
-			})
-		);
-
-		const refreshFrame = window.requestAnimationFrame(() => {
-			updateThemeFromViewport();
-			ScrollTrigger.refresh();
-		});
-
-		window.addEventListener("resize", updateThemeFromViewport);
-
-		return () => {
-			window.cancelAnimationFrame(refreshFrame);
-			window.removeEventListener("resize", updateThemeFromViewport);
-			triggers.forEach((trigger) => trigger.kill());
-		};
-	}, [pathname]);
-
-	useGSAP(
-		() => {
-			gsap.to(navRef.current, {
-				yPercent: isHidden ? -115 : 0,
-				duration: 0.42,
-				ease: "power3.out",
-				overwrite: true,
-			});
-		},
-		{ dependencies: [isHidden] }
-	);
-
-	useGSAP(
-		() => {
-			const panel = panelRef.current;
-			if (!panel) return;
-
-			const { links, placeholder, socials } = menuSelectors();
-
-			gsap.set(panel, { autoAlpha: 0, xPercent: 100 });
-			gsap.set(links, { autoAlpha: 0, x: 36 });
-			gsap.set(socials, { autoAlpha: 0, y: 10 });
-			gsap.set(placeholder, { autoAlpha: 0, scale: 0.96 });
-		},
-		{ dependencies: [], scope: panelRef }
-	);
-
-	useGSAP(
-		() => {
-			const panel = panelRef.current;
-			if (!panel) return;
-
-			const { links, placeholder, socials } = menuSelectors();
-
-			menuTweenRef.current?.kill();
-
-			const tl = gsap.timeline({
-				defaults: { overwrite: true },
-				onComplete: () => {
-					if (!isOpen) gsap.set(panel, { autoAlpha: 0, xPercent: 100 });
-				},
-			});
-
-			menuTweenRef.current = tl;
-
-			if (isOpen) {
-				tl.set(panel, { autoAlpha: 1, xPercent: 100 })
-					.to(panel, {
-						xPercent: 0,
-						duration: 0.62,
+			gsap
+				.timeline()
+				.set(panel, { autoAlpha: 1, xPercent: 100 })
+				.set(links, { autoAlpha: 0, x: 28 })
+				.set(details, { autoAlpha: 0, y: 10 })
+				.set(illustration, { autoAlpha: 0, scale: 0.96 })
+				.to(panel, {
+					xPercent: 0,
+					duration: 0.58,
+					ease: "power3.out",
+				})
+				.to(
+					links,
+					{
+						autoAlpha: 1,
+						x: 0,
+						duration: 0.42,
+						stagger: 0.07,
 						ease: "power3.out",
-					})
-					.to(
-						links,
-						{
-							autoAlpha: 1,
-							x: 0,
-							duration: 0.42,
-							stagger: 0.055,
-							ease: "power3.out",
-						},
-						"-=0.32"
-					)
-					.to(
-						placeholder,
-						{
-							autoAlpha: 1,
-							x: 0,
-							scale: 1,
-							duration: 0.48,
-							ease: "power2.out",
-						},
-						"-=0.38"
-					)
-					.to(
-						socials,
-						{
-							autoAlpha: 1,
-							x: 0,
-							y: 0,
-							duration: 0.28,
-							stagger: 0.04,
-							ease: "power2.out",
-						},
-						"-=0.2"
-					);
-
-				return;
-			}
-
-			tl.to(links, {
-				autoAlpha: 0,
-				x: 16,
-				duration: 0.14,
-				stagger: 0.025,
-				ease: "power1.in",
-			})
-				.to(
-					socials,
-					{
-						autoAlpha: 0,
-						y: 10,
-						duration: 0.12,
-						ease: "power1.in",
 					},
-					0
+					"-=0.28"
 				)
 				.to(
-					placeholder,
+					illustration,
 					{
-						autoAlpha: 0,
-						scale: 0.96,
-						duration: 0.12,
-						ease: "power1.in",
+						autoAlpha: 1,
+						scale: 1,
+						duration: 0.46,
+						ease: "power2.out",
 					},
-					0
+					"-=0.34"
 				)
 				.to(
-					panel,
+					details,
 					{
-						xPercent: 100,
-						duration: 0.26,
-						ease: "power2.in",
+						autoAlpha: 1,
+						y: 0,
+						duration: 0.3,
+						stagger: 0.04,
+						ease: "power2.out",
 					},
-					0
+					"-=0.24"
 				);
-		},
-		{ dependencies: [isOpen, menuSelectors], scope: panelRef }
-	);
 
-	const handleRouteClick = (event, href) => {
-		if (
-			event.metaKey ||
-			event.ctrlKey ||
-			event.shiftKey ||
-			event.altKey ||
-			event.button !== 0
-		) {
 			return;
 		}
 
-		event.preventDefault();
-		setMenuOpen(false);
+		setIsOpen(false);
 
-		window.setTimeout(() => {
-			if (pathname !== href) router.push(href);
-		}, 300);
+		gsap
+			.timeline()
+			.to([links, details, illustration], {
+				autoAlpha: 0,
+				duration: 0.16,
+				ease: "power1.in",
+			})
+			.to(
+				panel,
+				{
+					xPercent: 100,
+					duration: 0.34,
+					ease: "power2.inOut",
+				},
+				0
+			)
+			.set(panel, { autoAlpha: 0 });
+	});
+
+	const toggleMenu = () => {
+		animatePanel(!isOpen);
 	};
+
+	const closeMenu = () => {
+		if (isOpen) animatePanel(false);
+	};
+
+	useEffect(() => {
+		const closeOnEscape = (event) => {
+			if (event.key === "Escape") closeMenu();
+		};
+
+		window.addEventListener("keydown", closeOnEscape);
+		return () => window.removeEventListener("keydown", closeOnEscape);
+	});
 
 	return (
 		<>
 			<header
 				ref={navRef}
-				className={`fixed inset-x-0 top-0 z-[10000] px-4 py-5 transition-colors duration-300 sm:px-8 lg:px-10 2xl:px-14 ${headerColorClass}`}
+				className="fixed inset-x-0 top-0 z-[80] flex h-14 w-full items-center bg-transparent px-5 text-foreground sm:h-16 sm:px-8 lg:h-[4.5rem] lg:px-12 2xl:px-16"
 			>
-				<div className="flex items-center justify-between">
-					<Link
-						href="/"
-						className="group flex items-center gap-3"
-						aria-label="Ir al inicio"
-						onClick={() => isOpen && setMenuOpen(false)}
-					>
-						<span className="flex size-9 items-center justify-center rounded-md border border-current/25 bg-white/6 text-sm font-bold italic text-goldbackground backdrop-blur-sm transition-colors group-hover:border-goldbackground/70 sm:size-10">
-							G
+				<Link
+					href="/"
+					onClick={closeMenu}
+					className="group flex items-center gap-3"
+					aria-label="Ir al inicio"
+				>
+					<span className="flex size-10 items-center justify-center rounded-lg border border-foreground/15 bg-background/25 text-sm font-bold text-goldbackground backdrop-blur-md transition-colors duration-300 group-hover:border-goldbackground/70 sm:size-11">
+						G
+					</span>
+					<span className="hidden leading-none sm:block">
+						<span className="block text-xs font-bold uppercase tracking-[0.28em]">
+							Galos
 						</span>
-						<span className="leading-none">
-							<span className="block text-xs font-bold uppercase tracking-[0.28em] sm:text-sm">
-								Galos
-							</span>
-							<span className="mt-1 block text-[0.62rem] uppercase tracking-[0.38em] opacity-70 sm:text-xs">
-								Casa Creativa
-							</span>
+						<span className="mt-1 block text-[0.62rem] uppercase tracking-[0.34em] text-foreground/55">
+							Casa Creativa
 						</span>
-					</Link>
+					</span>
+				</Link>
 
-					<button
-						type="button"
-						onClick={() => setMenuOpen(!isOpen)}
-						className="relative z-[10000] flex size-11 items-center justify-center rounded-full border border-current/25 bg-white/6 p-2 backdrop-blur-sm transition-colors hover:border-goldbackground hover:text-goldbackground sm:size-12"
-						aria-expanded={isOpen}
-						aria-label={isOpen ? "Cerrar menú" : "Abrir menú"}
-					>
-						<span
-							ref={menuIconRef}
-							className="block size-7 transition-[filter] duration-300"
-							style={{ filter: iconFilter }}
-						/>
-					</button>
-				</div>
+				<button
+					type="button"
+					onClick={toggleMenu}
+					className="relative z-[90] ml-auto flex size-10 items-center justify-center rounded-full border border-foreground/20 bg-background/20 p-2 text-foreground backdrop-blur-md transition-colors duration-300 hover:border-goldbackground hover:text-goldbackground sm:size-11 lg:size-12"
+					aria-expanded={isOpen}
+					aria-controls="main-navigation-panel"
+					aria-label={isOpen ? "Cerrar menú" : "Abrir menú"}
+				>
+					<Lottie
+						lottieRef={lottieRef}
+						animationData={animationData}
+						loop={false}
+						autoplay={false}
+						className="size-full rotate-180"
+					/>
+				</button>
 			</header>
 
-			<nav
+			<div
+				id="main-navigation-panel"
 				ref={panelRef}
-				className="fixed inset-0 flex h-[100svh] w-screen flex-col overflow-hidden bg-[radial-gradient(circle_at_80%_40%,rgba(221,178,109,0.12),transparent_32%),linear-gradient(110deg,#1a1a1a,#24221f_55%,#2b2821)] text-foreground"
-				style={panelBaseStyle}
+				className={`invisible fixed inset-0 z-[70] h-[100svh] w-screen translate-x-full overflow-y-auto bg-background text-foreground opacity-0 lg:overflow-hidden ${
+					isOpen ? "pointer-events-auto" : "pointer-events-none"
+				}`}
 				aria-hidden={!isOpen}
 			>
-				<div className="h-24 shrink-0 border-b border-white/8 sm:h-28" />
+				<div className="absolute inset-0 bg-[radial-gradient(circle_at_82%_42%,rgba(221,178,109,0.14),transparent_30%),linear-gradient(115deg,rgba(36,36,36,0.98),rgba(36,36,36,0.94)_56%,rgba(53,53,53,0.88))]" />
+				<div className="absolute inset-x-0 top-14 h-px bg-foreground/8 sm:top-16 lg:top-[4.5rem]" />
 
-				<div className="grid min-h-0 flex-1 grid-rows-[1fr_auto] px-6 pb-6 sm:px-10 sm:pb-8 lg:grid-cols-[minmax(0,1.25fr)_minmax(18rem,0.85fr)] lg:grid-rows-1 lg:px-14 xl:px-20 2xl:px-24">
-					<div className="flex min-h-0 flex-col justify-center border-white/10 py-8 lg:border-r lg:pr-16">
-						<ul className="w-full max-w-5xl">
-							{routes.map((route, index) => {
-								const isActive = isRouteActive(route.href);
+				<div className="relative grid h-full grid-rows-[1fr_auto] px-5 pb-5 pt-18 sm:px-8 sm:pb-7 sm:pt-20 lg:grid-cols-[minmax(0,1fr)_minmax(22rem,0.72fr)] lg:grid-rows-1 lg:px-12 lg:pb-8 lg:pt-24 xl:px-16 2xl:px-24">
+					<nav className="relative z-10 flex min-h-0 flex-col justify-center lg:border-r lg:border-foreground/10 lg:pr-12 2xl:pr-18">
+						<ul className="ml-auto flex w-full max-w-5xl flex-col items-end">
+							{menuLinks.map((link, index) => {
+								const isActive = isRouteActive(link.href);
 
 								return (
 									<li
-										key={route.href}
-										className="menu-link border-b border-goldbackground/35 py-4 sm:py-5 xl:py-6"
+										key={link.href}
+										className="navigation-panel-link w-full border-b border-goldbackground/30 py-4 first:border-t sm:py-5 lg:py-6 3xl:py-8"
 									>
 										<Link
-											href={route.href}
-											onClick={(event) => handleRouteClick(event, route.href)}
-											className={`group grid grid-cols-[2.4rem_minmax(0,1fr)_1.5rem] items-end gap-3 transition-colors duration-300 sm:grid-cols-[3rem_minmax(0,1fr)_2rem] ${
+											href={link.href}
+											onClick={closeMenu}
+											className={`group grid grid-cols-[2.25rem_minmax(0,1fr)] items-end gap-4 text-right transition-colors duration-300 sm:grid-cols-[3rem_minmax(0,1fr)] lg:gap-6 ${
 												isActive
 													? "text-goldbackground"
-													: "text-foreground/82 hover:text-[#cfa96c]"
+													: "text-foreground/78 hover:text-goldbackground/80"
 											}`}
+											aria-current={isActive ? "page" : undefined}
 										>
-											<span className="pb-3 text-xs font-semibold tracking-[0.3em] opacity-90 sm:text-sm">
+											<span className="pb-3 text-left text-xs font-bold tracking-[0.3em] opacity-80 sm:text-sm">
 												{String(index + 1).padStart(2, "0")}
 											</span>
-											<span>
-												<span className="block text-[clamp(3.4rem,14vw,7.2rem)] font-bold uppercase leading-[0.86] tracking-normal lg:text-[clamp(4rem,7vw,8.5rem)] 2xl:text-[9rem]">
-													{route.label}
+											<span className="flex min-w-0 flex-col items-end">
+												<span className="max-w-full text-[clamp(3.2rem,16vw,6.8rem)] font-bold uppercase leading-[0.88] text-balance transition-transform duration-300 group-hover:-translate-x-2 lg:text-[clamp(4.5rem,7vw,8rem)] 2xl:text-[clamp(6rem,7vw,9.2rem)]">
+													{link.label}
 												</span>
-												<span className="mt-3 block text-xs font-semibold uppercase tracking-[0.34em] opacity-55 sm:text-sm">
-													{route.eyebrow}
+												<span className="navigation-panel-detail mt-3 text-[0.62rem] font-bold uppercase tracking-[0.34em] opacity-50 sm:text-xs lg:text-sm">
+													{link.description}
 												</span>
-											</span>
-											<span className="pb-7 text-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100 sm:text-3xl">
-												↗
 											</span>
 										</Link>
 									</li>
 								);
 							})}
 						</ul>
-					</div>
+					</nav>
 
-					<div className="hidden min-h-0 flex-col justify-center pl-12 lg:flex">
-						<p className="menu-placeholder mb-16 text-xs font-semibold uppercase tracking-[0.36em] text-white/20">
-							04.416 N · 3.703 W
-						</p>
-						<div className="menu-placeholder relative mx-auto flex aspect-square w-full max-w-[34rem] items-center justify-center rounded-full border border-goldbackground/14">
-							<div className="absolute inset-[12%] rounded-full border border-dashed border-goldbackground/10" />
-							<div className="absolute inset-[24%] rounded-full border border-goldbackground/8" />
-							<div className="text-center">
-								<p className="text-[clamp(4rem,8vw,8.5rem)] font-bold uppercase leading-none text-white/92">
-									Galos<span className="text-goldbackground">.</span>
-								</p>
-								<div className="mx-auto mt-8 h-px w-40 bg-goldbackground/35" />
-								<p className="mt-8 text-xs font-semibold uppercase tracking-[0.46em] text-white/45">
-									Placeholder
-								</p>
-								<p className="mt-4 text-xs font-semibold uppercase tracking-[0.34em] text-white/30">
-									Ilustracion futura
-								</p>
+					<aside className="pointer-events-none absolute inset-0 opacity-30 lg:pointer-events-auto lg:relative lg:flex lg:items-center lg:justify-center lg:pl-12 lg:opacity-100 2xl:pl-18">
+						<div className="navigation-illustration absolute inset-0 flex items-center justify-center lg:relative lg:inset-auto lg:w-full">
+							<div className="relative flex aspect-square w-[115vmin] max-w-none items-center justify-center rounded-full border border-goldbackground/10 sm:w-[95vmin] lg:w-full lg:max-w-[34rem] 2xl:max-w-[42rem]">
+								<div className="absolute inset-[12%] rounded-full border border-dashed border-goldbackground/10" />
+								<div className="absolute inset-[24%] rounded-full border border-goldbackground/8" />
+								<div className="absolute h-px w-2/5 bg-goldbackground/20" />
+								<div className="text-center">
+									<p className="text-[clamp(3.6rem,18vw,8.5rem)] font-bold uppercase leading-none text-foreground/90 lg:text-[clamp(4rem,8vw,8rem)]">
+										Galos<span className="text-goldbackground">.</span>
+									</p>
+									<p className="mt-7 text-[0.62rem] font-bold uppercase tracking-[0.46em] text-foreground/35 sm:text-xs">
+										Placeholder
+									</p>
+									<p className="mt-3 text-[0.58rem] font-bold uppercase tracking-[0.34em] text-foreground/25 sm:text-xs">
+										Ilustracion futura
+									</p>
+								</div>
 							</div>
 						</div>
+					</aside>
+
+					<div className="relative z-10 flex flex-wrap justify-end gap-x-6 gap-y-3 border-t border-foreground/10 pt-5 text-right text-[0.62rem] font-bold uppercase tracking-[0.26em] text-foreground/38 sm:text-xs lg:absolute lg:inset-x-12 lg:bottom-7 lg:border-0 lg:pt-0 xl:inset-x-16 2xl:inset-x-24">
+						<span className="navigation-panel-detail">Instagram</span>
+						<span className="navigation-panel-detail">Behance</span>
+						<span className="navigation-panel-detail">LinkedIn</span>
 					</div>
 				</div>
-
-				<div className="grid shrink-0 gap-4 border-t border-white/8 px-6 py-5 text-xs font-semibold uppercase tracking-[0.18em] text-white/36 sm:px-10 lg:grid-cols-[1fr_auto] lg:px-14 xl:px-20 2xl:px-24">
-					<ul className="flex flex-wrap gap-x-7 gap-y-3">
-						{socials.map((social) => (
-							<li key={social.label} className="menu-social">
-								<a
-									href={social.href}
-									target="_blank"
-									rel="noreferrer"
-									className="transition-colors duration-300 hover:text-white"
-								>
-									{social.label} ↗
-								</a>
-							</li>
-						))}
-					</ul>
-					<p className="menu-social hidden text-right lg:block">
-						hello@galos.studio <span className="mx-5 text-white/12">|</span> © 2024 Galos
-					</p>
-				</div>
-			</nav>
+			</div>
 		</>
 	);
 }
