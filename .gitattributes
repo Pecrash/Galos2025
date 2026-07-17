@@ -1,0 +1,16 @@
+# Normaliza saltos de línea a LF (importante en WSL Windows<->Linux)
+* text=auto eol=lf
+
+# Binarios (no diff, no normalización)
+*.jpg  binary
+*.jpeg binary
+*.png  binary
+*.gif  binary
+*.ico  binary
+*.webp binary
+*.mp4  binary
+*.mov  binary
+*.webm binary
+*.woff binary
+*.woff2 binary
+*.lottie binary

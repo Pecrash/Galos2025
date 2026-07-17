@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Windows/WSL "Mark of the Web" junk
+*:Zone.Identifier
+
+# Editor
+.vscode/
